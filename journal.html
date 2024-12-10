@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Journal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5 p-4 bg-light shadow rounded">
+
+    <h1 class="mb-4">Transaction Summary</h1>
+    <div class="alert alert-info">
+        <strong>Total Debit:</strong> <span th:text="${totalDebit}"></span><br>
+        <strong>Total Credit:</strong> <span th:text="${totalCredit}"></span>
+    </div>
+
+    <div th:if="${hasError}" class="alert alert-danger" role="alert">
+        Warning: Total Credit exceeds Total Debit!
+    </div>
+    
+    <div class="row bg-light p-3 rounded mb-3 text-center">
+        <div class="col-md-1 fw-bold">ID</div>
+        <div class="col-md-2 fw-bold">Date</div>
+        <div class="col-md-2 fw-bold">Name</div>
+        <div class="col-md-2 fw-bold">Debit</div>
+        <div class="col-md-2 fw-bold">Credit</div>
+        <div class="col-md-3 fw-bold">Actions</div>
+    </div>
+
+    <div class="container">
+        <div class="row p-3 rounded mb-2 align-items-center text-center bg-white shadow-sm" th:each="tran : ${list}">
+            <div class="col-md-1" th:text="${tran.getId()}"></div>
+            <div class="col-md-2" th:text="${tran.getDate()}"></div>
+            <div class="col-md-2" th:text="${tran.getName()}"></div>
+            <div class="col-md-2" th:text="${tran.getDebit()}"></div>
+            <div class="col-md-2" th:text="${tran.getCredit()}"></div>
+            <div class="col-md-3">
+                <a class="btn btn-secondary btn-sm" th:href="@{'/finance/about/' + ${tran.getId()}}">ABOUT</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script
